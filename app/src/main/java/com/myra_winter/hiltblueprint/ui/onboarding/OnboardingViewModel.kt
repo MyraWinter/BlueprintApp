@@ -1,8 +1,9 @@
 package com.myra_winter.hiltblueprint.ui.onboarding
 
-import androidx.compose.foundation.layout.*
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myra_winter.hiltblueprint.R
 import com.myra_winter.hiltblueprint.data.repository.DataStoreRepository
 import com.myra_winter.hiltblueprint.data.repository.UserState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,9 +19,34 @@ class OnboardingViewModel @Inject constructor(
     fun saveOnBoardingState(completed: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.saveAuthState(
-                if (completed) UserState.AUTHENTICATED else UserState.ONBOARDING
+                if (completed) UserState.HOME else UserState.ONBOARDING
             )
         }
     }
 
+}
+
+sealed class OnboardingData(
+    @DrawableRes
+    val image: Int,
+    val title: String,
+    val description: String
+) {
+    object First : OnboardingData(
+        image = R.drawable.undraw_book_reading_re_fu2c,
+        title = "Books",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+    )
+
+    object Second : OnboardingData(
+        image = R.drawable.undraw_love_it_cixe,
+        title = "Rate",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+    )
+
+    object Third : OnboardingData(
+        image = R.drawable.undraw_love_it_cixe,
+        title = "Start",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+    )
 }

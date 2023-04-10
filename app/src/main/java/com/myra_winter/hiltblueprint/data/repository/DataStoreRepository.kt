@@ -25,7 +25,7 @@ class DataStoreRepository(context: Context) {
 
     suspend fun saveAuthState(userState: UserState) {
         dataStore.edit { preferences ->
-            preferences[PreferencesKey.authenticatedKey] = UserStateString(userState)
+            preferences[PreferencesKey.authenticatedKey] = userStateString(userState)
         }
     }
 
@@ -37,13 +37,13 @@ class DataStoreRepository(context: Context) {
             .map { preferences ->
                 val authenticatedKey = preferences[PreferencesKey.authenticatedKey]
                 when {
-                    authenticatedKey?.equals(UserStateString(UserState.AUTHENTICATED)) == true -> {
-                        UserState.AUTHENTICATED
+                    authenticatedKey?.equals(userStateString(UserState.HOME)) == true -> {
+                        UserState.HOME
                     }
-                    authenticatedKey?.equals(UserStateString(UserState.UNAUTHENTICATED)) == true -> {
-                        UserState.UNAUTHENTICATED
+                    authenticatedKey?.equals(userStateString(UserState.LOGIN)) == true -> {
+                        UserState.LOGIN
                     }
-                    authenticatedKey?.equals(UserStateString(UserState.ONBOARDING)) == true -> {
+                    authenticatedKey?.equals(userStateString(UserState.ONBOARDING)) == true -> {
                         UserState.ONBOARDING
                     }
                     else -> {

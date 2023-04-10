@@ -25,7 +25,7 @@ sealed class NavigationItem(val route: String,    var page_icon: Int = R.drawabl
     object Forgot : NavigationItem(route = "FORGOT")
     object Information : NavigationItem(route = "INFORMATION")
     object Overview : NavigationItem(route = "OVERVIEW")
-    object Onboarding : NavigationItemOLD(route = "onboarding")
+    object Onboarding : NavigationItem(route = "onboarding")
     object Home : NavigationItem(route = "HOME", page_title = "HOME", page_icon = R.drawable.ic_home)
     object Settings : NavigationItem(route = "SETTINGS", page_title = "SETTINGS", page_icon = R.drawable.ic_settings)
     class Books {
@@ -38,7 +38,7 @@ sealed class NavigationItem(val route: String,    var page_icon: Int = R.drawabl
 fun RootNavigationGraph(navController: NavHostController, startdest: UserState) {
     NavHost(
         navController = navController,
-        startDestination = NavigationItem.Onboarding.route
+        startDestination = if(startdest == UserState.ONBOARDING) NavigationItem.Onboarding.route else NavigationItem.Home.route
     ) {
 
         Log.d("LOGGER", " " + startdest)
@@ -84,26 +84,7 @@ fun HomeNavGraph(navController: NavHostController) {
     }
 }
 
-sealed class NavigationItemOLD(
-    var bottom_route: String? = null,
-    var route: String,
-    var page_icon: Int? = null,
-    var page_title: String? = null
-) {
-
-    object Onboarding : NavigationItemOLD(route = "onboarding")
-    object Login : NavigationItemOLD(route = "LOGIN")
-    object SignUp : NavigationItemOLD(route = "SIGN_UP")
-    object Forgot : NavigationItemOLD(route = "FORGOT")
-
-    object Home : NavigationItemOLD(bottom_route = "home", route = "Home", page_icon = R.drawable.ic_home, page_title = "Home")
-    object Settings : NavigationItemOLD(bottom_route = "settings", route = "Movies", page_icon = R.drawable.ic_settings, page_title = "Movies")
-
-    class Books {
-        object Overview : NavigationItemOLD(bottom_route = "book_overview", route = "Overview", page_icon = R.drawable.ic_book, page_title = "Overview")
-        object Details : NavigationItemOLD(route = "book_details", page_icon = R.drawable.ic_book_details, page_title = "Details")
-    }
-}
+// TODO delete this placeholder class
 @Composable
 fun ScreenContent(name: String, onClick: () -> Unit) {
     Box(
