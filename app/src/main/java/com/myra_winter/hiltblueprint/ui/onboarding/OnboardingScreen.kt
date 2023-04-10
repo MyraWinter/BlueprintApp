@@ -26,8 +26,10 @@ import com.myra_winter.hiltblueprint.ui.navigation.NavigationItem
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
 @Composable
 fun OnboardingScreen(
-    navController: NavHostController,
-    onboardingViewModel: OnboardingViewModel = hiltViewModel()
+    onboardingViewModel: OnboardingViewModel = hiltViewModel(),
+    onClick: () -> Unit,
+    onSignUpClick: () -> Unit,
+    onForgotClick: () -> Unit
 ) {
     val pages = listOf(OnboardingData.First, OnboardingData.Second, OnboardingData.Third)
     val pagerState = rememberPagerState()
@@ -54,8 +56,7 @@ fun OnboardingScreen(
             pagerState = pagerState
         ) {
              onboardingViewModel.saveOnBoardingState(completed = true)
-            navController.popBackStack()
-            navController.navigate(NavigationItem.Home.route)
+           onClick()
         }
     }
 }

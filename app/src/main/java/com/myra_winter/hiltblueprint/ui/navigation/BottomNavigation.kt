@@ -63,26 +63,6 @@ fun BottomNavigationBar(navController: NavController) {
                             launchSingleTop = true
                             // restore state when again selecting a previously selected tab
                             restoreState = true
-
-// TODO Test this
-//                            if (currentRoute.toString().startsWith(route)) {
-//                                navController.navigate(findTabRootRoute(route)) {
-//                                    popUpTo(findStartDestination(navController.graph).id)
-//                                }
-//                            } else if (route != currentRoute) {
-//                                navController.navigate(route) {
-//                                    launchSingleTop = true
-//                                    restoreState = true
-//                                    // Pop up backstack to the first destination and save state. This makes going back
-//                                    // to the start destination when pressing back in any other bottom tab.
-//                                    val startDestination = findStartDestination(navController.graph)
-//                                    popUpTo(startDestination.id) {
-//                                        saveState = true
-//                                    }
-//                                }
-//                            }
-
-
                         }
                     }
                 )
@@ -97,12 +77,3 @@ private tailrec fun findStartDestination(graph: NavDestination): NavDestination 
 
 private val NavGraph.startDestination: NavDestination?
     get() = findNode(startDestinationId)
-
-private fun findTabRootRoute(tab: String): String {
-    return when (tab) {
-        NavigationItem.Home.bottom_route -> NavigationItem.Home.route
-        NavigationItem.Books.Overview.bottom_route -> NavigationItem.Books.Overview.route
-        NavigationItem.Settings.bottom_route -> NavigationItem.Settings.route
-        else -> NavigationItem.Home.route
-    }
-}

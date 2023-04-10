@@ -6,10 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myra_winter.hiltblueprint.data.repository.DataStoreRepository
-import com.myra_winter.hiltblueprint.data.repository.UserAuthState
-import com.myra_winter.hiltblueprint.ui.navigation.NavigationItem
-import kotlinx.coroutines.launch
+import com.myra_winter.hiltblueprint.data.repository.UserState
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
@@ -19,24 +18,13 @@ class SplashViewModel @Inject constructor(
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
 
-    private val _startDestination: MutableState<String> =
-        mutableStateOf(NavigationItem.Onboarding.route)
-    val startDestination: State<String> = _startDestination
+    private val _startDestination: MutableState<UserState> = mutableStateOf(UserState.UNKNOWN)
+    val startDestination: State<UserState> = _startDestination
 
     init {
         viewModelScope.launch {
             repository.readAuthState().collect { state ->
-                when (state) {
-                    // TODO implement authenticated and unauthenticated
-
-                    UserAuthState.AUTHENTICATED -> _startDestination.value =
-                        NavigationItem.Home.route
-                    UserAuthState.ONBOARDING -> _startDestination.value =
-                        NavigationItem.Onboarding.route
-                    UserAuthState.UNAUTHENTICATED -> TODO()
-                    UserAuthState.UNKNOWN -> _startDestination.value =
-                        NavigationItem.Onboarding.route
-                }
+                _startDestination.value = state
             }
             _isLoading.value = false
         }

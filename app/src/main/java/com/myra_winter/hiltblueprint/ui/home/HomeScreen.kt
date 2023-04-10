@@ -4,8 +4,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.myra_winter.hiltblueprint.ui.navigation.HomeNavGraph
 import com.myra_winter.hiltblueprint.ui.navigation.BottomNavigationBar
+import com.myra_winter.hiltblueprint.ui.navigation.HomeNavGraph
 
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {

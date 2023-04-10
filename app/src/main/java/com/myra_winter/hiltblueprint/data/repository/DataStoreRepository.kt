@@ -23,34 +23,31 @@ class DataStoreRepository(context: Context) {
 
     private val dataStore = context.dataStore
 
-    suspend fun saveAuthState(userAuthState: UserAuthState) {
+    suspend fun saveAuthState(userState: UserState) {
         dataStore.edit { preferences ->
-            preferences[PreferencesKey.authenticatedKey] = userAuthState.state
+            preferences[PreferencesKey.authenticatedKey] = UserStateString(userState)
         }
     }
 
-    fun readAuthState(): Flow<UserAuthState> {
+    fun readAuthState(): Flow<UserState> {
         return dataStore.data
             .catch { exception ->
-                if (exception is IOException) {
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
+                if (exception is IOException) emit(emptyPreferences()) else throw exception
             }
             .map { preferences ->
+                val authenticatedKey = preferences[PreferencesKey.authenticatedKey]
                 when {
-                    preferences[PreferencesKey.authenticatedKey]?.equals(UserAuthState.AUTHENTICATED.state) == true -> {
-                        UserAuthState.AUTHENTICATED
+                    authenticatedKey?.equals(UserStateString(UserState.AUTHENTICATED)) == true -> {
+                        UserState.AUTHENTICATED
                     }
-                    preferences[PreferencesKey.authenticatedKey]?.equals(UserAuthState.UNAUTHENTICATED.state) == true -> {
-                        UserAuthState.UNAUTHENTICATED
+                    authenticatedKey?.equals(UserStateString(UserState.UNAUTHENTICATED)) == true -> {
+                        UserState.UNAUTHENTICATED
                     }
-                    preferences[PreferencesKey.authenticatedKey]?.equals(UserAuthState.ONBOARDING.state) == true -> {
-                        UserAuthState.ONBOARDING
+                    authenticatedKey?.equals(UserStateString(UserState.ONBOARDING)) == true -> {
+                        UserState.ONBOARDING
                     }
                     else -> {
-                        UserAuthState.UNKNOWN
+                        UserState.UNKNOWN
                     }
                 }
             }

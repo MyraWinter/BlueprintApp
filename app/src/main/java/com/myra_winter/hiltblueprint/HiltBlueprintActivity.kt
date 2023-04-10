@@ -30,9 +30,8 @@ class HiltBlueprintActivity : ComponentActivity() {
 
         setContent {
             HiltBlueprintTheme {
-                val screen by splashViewModel.startDestination
-                var s = screen
-                RootNavigationGraph(navController = rememberNavController(), startDestination = screen)
+                val userState by splashViewModel.startDestination
+                RootNavigationGraph(navController = rememberNavController(), userState)
 
             }
         }
