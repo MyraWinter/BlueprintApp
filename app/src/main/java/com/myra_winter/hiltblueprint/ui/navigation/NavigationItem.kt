@@ -10,27 +10,15 @@ sealed class NavigationItem(
 ) {
 
     object Onboarding : NavigationItem(route = "onboarding")
+    object Login : NavigationItem(route = "LOGIN")
+    object SignUp : NavigationItem(route = "SIGN_UP")
+    object Forgot : NavigationItem(route = "FORGOT")
 
-    object Home :
-        NavigationItem(
-            bottom_route = "home", route = "Home",
-            page_icon = R.drawable.ic_home, page_title = "Home"
-        )
-
-    object Settings :
-        NavigationItem(
-            bottom_route = "settings", route = "Movies",
-            page_icon = R.drawable.ic_settings, page_title = "Movies"
-        )
+    object Home : NavigationItem(bottom_route = "home", route = "Home", page_icon = R.drawable.ic_home, page_title = "Home")
+    object Settings : NavigationItem(bottom_route = "settings", route = "Movies", page_icon = R.drawable.ic_settings, page_title = "Movies")
 
     class Books {
-        object Overview : NavigationItem(
-            bottom_route = "book_overview", route = "Overview",
-            page_icon = R.drawable.ic_book, page_title = "Overview"
-        )
-
-        object Details : NavigationItem(
-            route = "book_details", page_icon = R.drawable.ic_book_details, page_title = "Details"
-        )
+        object Overview : NavigationItem(bottom_route = "book_overview", route = "Overview", page_icon = R.drawable.ic_book, page_title = "Overview")
+        object Details : NavigationItem(route = "book_details", page_icon = R.drawable.ic_book_details, page_title = "Details")
     }
 }

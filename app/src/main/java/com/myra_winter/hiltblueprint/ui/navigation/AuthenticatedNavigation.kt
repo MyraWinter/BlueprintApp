@@ -1,31 +1,18 @@
 package com.myra_winter.hiltblueprint.ui.navigation
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.myra_winter.hiltblueprint.ui.books.BookScreen
 import com.myra_winter.hiltblueprint.ui.home.HomeScreen
 
-fun NavGraphBuilder.authenticatedNavigation(
-    modifier: Modifier,
-    navController: NavController
-) {
-    // This is for the Bottom Navigation
 
-    navigation(
-        route = NavigationItem.Books.Overview.bottom_route!!,
-        startDestination = NavigationItem.Books.Overview.route
-    ) {
 
-        composable(NavigationItem.Home.route) {
-            HomeScreen()
-        }
 
-        composable(NavigationItem.Books.Overview.route) {
-            BookScreen(navController = navController)
-        }
 //        composable(
 //            NavigationItem.Books.Details.route + "/{selected}",
 //            arguments = listOf(navArgument("selected") { type = NavType.IntType })
@@ -40,6 +27,3 @@ fun NavGraphBuilder.authenticatedNavigation(
 //                BooksDetailScreen(specificBook)
 //            }
 //        }
-
-    }
-}

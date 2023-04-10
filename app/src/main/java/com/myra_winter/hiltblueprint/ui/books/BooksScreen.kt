@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun BookScreen(navController: NavController) {
@@ -34,6 +35,7 @@ fun BookScreen(navController: NavController) {
 @Composable
 @Preview
 fun BookScreenPreview() {
+    val navController = rememberNavController()
     MaterialTheme {
         BookScreen(navController)
     }
