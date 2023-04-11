@@ -1,4 +1,4 @@
-package com.myra_winter.hiltblueprint.ui.books
+package com.myra_winter.hiltblueprint.ui.authenticated.books
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun BookScreen(navController: NavController) {
+fun BookScreen() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,8 +35,7 @@ fun BookScreen(navController: NavController) {
 @Composable
 @Preview
 fun BookScreenPreview() {
-    val navController = rememberNavController()
     MaterialTheme {
-        BookScreen(navController)
+        BookScreen()
     }
 }

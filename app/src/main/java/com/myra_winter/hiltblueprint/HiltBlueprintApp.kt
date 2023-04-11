@@ -9,6 +9,6 @@ import dagger.hilt.android.HiltAndroidApp
  * that serves as the application-level dependency container
  *
  * https://www.youtube.com/watch?v=6dRwaXH2cYA -> https://github.com/stevdza-san/OnBoardingCompose
- * */
+* */
 @HiltAndroidApp
 class HiltBlueprintApp : Application()

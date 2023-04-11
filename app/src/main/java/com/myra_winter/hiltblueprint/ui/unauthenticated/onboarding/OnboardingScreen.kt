@@ -1,5 +1,6 @@
-package com.myra_winter.hiltblueprint.ui.onboarding
+package com.myra_winter.hiltblueprint.ui.unauthenticated.signUp.onboarding
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
@@ -19,14 +20,39 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.*
+import com.myra_winter.hiltblueprint.R
+import com.myra_winter.hiltblueprint.data.repository.UserState
+import com.myra_winter.hiltblueprint.ui.unauthenticated.signUp.SignUpViewModel
+
+sealed class OnboardingData(
+    @DrawableRes
+    val image: Int,
+    val title: String,
+    val description: String
+) {
+    object First : OnboardingData(
+        image = R.drawable.undraw_book_reading_re_fu2c,
+        title = "Save your Books",
+        description = "Save what you have already read. You can also create an Overview of what you want to read next."
+    )
+
+    object Second : OnboardingData(
+        image = R.drawable.undraw_love_it_cixe,
+        title = "Rate it",
+        description = "Rate the Books you read and save your annotations. Maybe you want to read it again?"
+    )
+
+    object Third : OnboardingData(
+        image = R.drawable.undraw_sign_up,
+        title = "Start",
+        description = "Sign up to start ^^"
+    )
+}
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
 @Composable
 fun OnboardingScreen(
-    onboardingViewModel: OnboardingViewModel = hiltViewModel(),
-    onClick: () -> Unit,
-    onSignUpClick: () -> Unit,
-    onForgotClick: () -> Unit
+    onClick: () -> Unit
 ) {
     val pages = listOf(OnboardingData.First, OnboardingData.Second, OnboardingData.Third)
     val pagerState = rememberPagerState()
@@ -39,7 +65,7 @@ fun OnboardingScreen(
             state = pagerState,
             verticalAlignment = Alignment.Top
         ) { position ->
-            PagerScreen(onBoardingPage = pages[position])
+            OnboardingPagerScreen(onBoardingPage = pages[position])
 
         }
         HorizontalPagerIndicator(
@@ -48,19 +74,18 @@ fun OnboardingScreen(
                 .weight(1f),
             pagerState = pagerState
         )
-        FinishButton(
+        SignUpButton(
             modifier = Modifier.weight(1f),
             pagerState = pagerState
         ) {
-             onboardingViewModel.saveOnBoardingState(completed = true)
-           onClick()
+            onClick()
         }
     }
 }
 
 
 @Composable
-fun PagerScreen(onBoardingPage: OnboardingData) {
+fun OnboardingPagerScreen(onBoardingPage: OnboardingData) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -98,7 +123,7 @@ fun PagerScreen(onBoardingPage: OnboardingData) {
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
-fun FinishButton(
+fun SignUpButton(
     modifier: Modifier,
     pagerState: PagerState,
     onClick: () -> Unit
@@ -119,7 +144,7 @@ fun FinishButton(
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Finish")
+                Text(text = "Sign Up")
             }
         }
     }
@@ -129,7 +154,7 @@ fun FinishButton(
 @Preview(showBackground = true)
 fun FirstOnBoardingScreenPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnboardingData.First)
+        OnboardingPagerScreen(onBoardingPage = OnboardingData.First)
     }
 }
 
@@ -137,7 +162,7 @@ fun FirstOnBoardingScreenPreview() {
 @Preview(showBackground = true)
 fun SecondOnBoardingScreenPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnboardingData.Second)
+        OnboardingPagerScreen(onBoardingPage = OnboardingData.Second)
     }
 }
 
@@ -145,6 +170,6 @@ fun SecondOnBoardingScreenPreview() {
 @Preview(showBackground = true)
 fun ThirdOnBoardingScreenPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnboardingData.Third)
+        OnboardingPagerScreen(onBoardingPage = OnboardingData.Third)
     }
 }

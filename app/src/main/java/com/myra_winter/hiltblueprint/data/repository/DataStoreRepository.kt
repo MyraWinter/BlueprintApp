@@ -23,13 +23,13 @@ class DataStoreRepository(context: Context) {
 
     private val dataStore = context.dataStore
 
-    suspend fun saveAuthState(userState: UserState) {
+    suspend fun saveUserState(userState: UserState) {
         dataStore.edit { preferences ->
             preferences[PreferencesKey.authenticatedKey] = userStateString(userState)
         }
     }
 
-    fun readAuthState(): Flow<UserState> {
+    fun getUserState(): Flow<UserState> {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) emit(emptyPreferences()) else throw exception
@@ -43,11 +43,17 @@ class DataStoreRepository(context: Context) {
                     authenticatedKey?.equals(userStateString(UserState.LOGIN)) == true -> {
                         UserState.LOGIN
                     }
+                    authenticatedKey?.equals(userStateString(UserState.SIGN_UP)) == true -> {
+                        UserState.SIGN_UP
+                    }
+                    authenticatedKey?.equals(userStateString(UserState.LOGOUT)) == true -> {
+                        UserState.LOGOUT
+                    }
                     authenticatedKey?.equals(userStateString(UserState.ONBOARDING)) == true -> {
                         UserState.ONBOARDING
                     }
                     else -> {
-                        UserState.UNKNOWN
+                        UserState.ONBOARDING
                     }
                 }
             }

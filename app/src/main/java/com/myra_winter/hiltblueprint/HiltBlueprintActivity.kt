@@ -1,16 +1,18 @@
 package com.myra_winter.hiltblueprint
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.myra_winter.hiltblueprint.ui.navigation.RootNavigationGraph
-import com.myra_winter.hiltblueprint.ui.splashscreen.SplashViewModel
+import com.myra_winter.hiltblueprint.ui.splashscreen.HiltBlueprintViewModel
 import com.myra_winter.hiltblueprint.ui.theme.HiltBlueprintTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,27 +23,19 @@ import javax.inject.Inject
 class HiltBlueprintActivity : ComponentActivity() {
 
     @Inject
-    lateinit var splashViewModel: SplashViewModel
+    lateinit var hiltBlueprintViewModel: HiltBlueprintViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //installSplashScreen().setKeepOnScreenCondition { !splashViewModel.isLoading.value }
+        installSplashScreen().setKeepOnScreenCondition { !hiltBlueprintViewModel.isLoading.value }
 
         setContent {
             HiltBlueprintTheme {
-                val userState by splashViewModel.startDestination
-                RootNavigationGraph(navController = rememberNavController(), userState)
-
+                val startDestination by hiltBlueprintViewModel.startDestination
+                Log.d("ACTIVITY", startDestination)
+                RootNavigationGraph( startDestination = startDestination)
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    HiltBlueprintTheme {
-
     }
 }

@@ -8,8 +8,7 @@ enum class UserState {
     LOGIN,
     LOGOUT,
     SIGN_UP,
-    ONBOARDING,
-    UNKNOWN
+    ONBOARDING
 }
 
 /**
@@ -22,6 +21,5 @@ fun userStateString (currentUserState: UserState): String {
         UserState.LOGOUT -> "LOGOUT"
         UserState.SIGN_UP -> "SIGN_UP"
         UserState.ONBOARDING -> "ONBOARDING"
-        UserState.UNKNOWN -> "UNKNOWN"
     }
 }

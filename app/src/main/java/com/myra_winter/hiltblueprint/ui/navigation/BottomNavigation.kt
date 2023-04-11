@@ -17,6 +17,10 @@ import com.myra_winter.hiltblueprint.R
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
+    /**
+     * only in certain Views (like the Tabs) should the BottomNavigationBar be visible,
+     * in DetailViews it will be gone
+     */
     var visible by remember { mutableStateOf(false) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: NavigationItem.Home
@@ -24,13 +28,12 @@ fun BottomNavigationBar(navController: NavController) {
     val bottomTabList = listOf(
         NavigationItem.Home,
         NavigationItem.Settings,
-        NavigationItem.Books.Overview
+        NavigationItem.BookOverView
     )
 
-    // Make Bottom Navigation only visible in certain Views
     visible = (navBackStackEntry?.destination?.route == NavigationItem.Home.route
             || navBackStackEntry?.destination?.route == NavigationItem.Settings.route
-            || navBackStackEntry?.destination?.route == NavigationItem.Books.Overview.route)
+            || navBackStackEntry?.destination?.route == NavigationItem.BookOverView.route)
 
     if (visible) {
         BottomNavigation(
