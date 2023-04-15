@@ -28,11 +28,13 @@ fun BottomNavigationBar(navController: NavController) {
     val bottomTabList = listOf(
         NavigationItem.Home,
         NavigationItem.Settings,
-        NavigationItem.BookOverView
+        NavigationItem.BookOverView,
+        NavigationItem.Api
     )
 
     visible = (navBackStackEntry?.destination?.route == NavigationItem.Home.route
             || navBackStackEntry?.destination?.route == NavigationItem.Settings.route
+            || navBackStackEntry?.destination?.route == NavigationItem.Api.route
             || navBackStackEntry?.destination?.route == NavigationItem.BookOverView.route)
 
     if (visible) {

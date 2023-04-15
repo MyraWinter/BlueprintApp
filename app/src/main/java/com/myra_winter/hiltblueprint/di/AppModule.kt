@@ -9,6 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ *
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
@@ -16,7 +19,8 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDataStoreRepository(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ) = DataStoreRepository(context = context)
+
 
 }

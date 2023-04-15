@@ -17,6 +17,9 @@ import com.myra_winter.hiltblueprint.ui.theme.HiltBlueprintTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+/**
+ *
+ */
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @AndroidEntryPoint
@@ -28,13 +31,13 @@ class HiltBlueprintActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        installSplashScreen().setKeepOnScreenCondition { !hiltBlueprintViewModel.isLoading.value }
+        installSplashScreen() //.setKeepOnScreenCondition { !hiltBlueprintViewModel.isLoading.value }
 
         setContent {
             HiltBlueprintTheme {
                 val startDestination by hiltBlueprintViewModel.startDestination
                 Log.d("ACTIVITY", startDestination)
-                RootNavigationGraph( startDestination = startDestination)
+                RootNavigationGraph(startDestination = startDestination)
             }
         }
     }

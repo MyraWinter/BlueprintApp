@@ -9,10 +9,15 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
+/**
+ * DataStore
+ *
+ * Learning Resources
+ * https://proandroiddev.com/preference-datastore-the-generic-way-d26b11f1075f
+ * https://medium.com/androiddevelopers/all-about-preferences-datastore-cc7995679334
+ * https://www.youtube.com/watch?v=kp53qL_O5gk&t=32s -> Codelab https://developer.android.com/codelabs/android-preferences-datastore#6
+ */
 
-// https://proandroiddev.com/preference-datastore-the-generic-way-d26b11f1075f
-// https://medium.com/androiddevelopers/all-about-preferences-datastore-cc7995679334
-// https://www.youtube.com/watch?v=kp53qL_O5gk&t=32s -> Codelab https://developer.android.com/codelabs/android-preferences-datastore#6
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "on_boarding_pref")
 
 class DataStoreRepository(context: Context) {
@@ -35,26 +40,13 @@ class DataStoreRepository(context: Context) {
                 if (exception is IOException) emit(emptyPreferences()) else throw exception
             }
             .map { preferences ->
-                val authenticatedKey = preferences[PreferencesKey.authenticatedKey]
-                when {
-                    authenticatedKey?.equals(userStateString(UserState.HOME)) == true -> {
-                        UserState.HOME
-                    }
-                    authenticatedKey?.equals(userStateString(UserState.LOGIN)) == true -> {
-                        UserState.LOGIN
-                    }
-                    authenticatedKey?.equals(userStateString(UserState.SIGN_UP)) == true -> {
-                        UserState.SIGN_UP
-                    }
-                    authenticatedKey?.equals(userStateString(UserState.LOGOUT)) == true -> {
-                        UserState.LOGOUT
-                    }
-                    authenticatedKey?.equals(userStateString(UserState.ONBOARDING)) == true -> {
-                        UserState.ONBOARDING
-                    }
-                    else -> {
-                        UserState.ONBOARDING
-                    }
+                when (preferences[PreferencesKey.authenticatedKey]) {
+                    userStateString(UserState.HOME) -> UserState.HOME
+                    userStateString(UserState.LOGIN) -> UserState.LOGIN
+                    userStateString(UserState.SIGN_UP) -> UserState.SIGN_UP
+                    userStateString(UserState.LOGOUT) -> UserState.LOGOUT
+                    userStateString(UserState.ONBOARDING) -> UserState.ONBOARDING
+                    else -> UserState.ONBOARDING
                 }
             }
     }

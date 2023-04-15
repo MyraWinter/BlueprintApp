@@ -24,30 +24,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.myra_winter.hiltblueprint.R
 
-// https://github.com/BoltUIX/Compose-User-Registration-Login-Reset-password-pages-with-UI-UX/blob/main/app/src/main/java/compose/material/theme/ResetPage.kt
 @Composable
 fun ResetPage() {
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(
-                color = Color.Transparent,
-            )
+            .background(color = Color.Transparent)
     ) {
-
-
         Box(
             modifier = Modifier
                 /*.background(
@@ -56,7 +48,6 @@ fun ResetPage() {
                 )*/
                 .align(Alignment.BottomCenter),
         ) {
-
             Image(
                 painter = painterResource(id = R.drawable.ic_placeholder),
                 contentDescription = null,
@@ -64,40 +55,26 @@ fun ResetPage() {
                 modifier = Modifier
                     .height(180.dp)
                     .fillMaxWidth(),
-
-                )
+            )
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(16.dp)
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-                ,
-
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                //.........................Spacer
                 Spacer(modifier = Modifier.height(50.dp))
-
-                //.........................Text: title
                 Text(
                     text = "Reset Password",
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .padding(top = 130.dp)
                         .fillMaxWidth(),
-                   // style = MaterialTheme.typography.headlineSmall,
                     color = Color.Blue,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-
-
                 ResetEmailID()
                 Spacer(modifier = Modifier.padding(3.dp))
-
-                val gradientColor = listOf(Color(0xFF484BF1), Color(0xFF673AB7))
-                val cornerRadius = 16.dp
-
-
                 Spacer(modifier = Modifier.padding(10.dp))
                 /* Button(
                      onClick = {},
@@ -107,64 +84,49 @@ fun ResetPage() {
                  ) {
                      Text(text = "Login", fontSize = 20.sp)
                  }*/
-                GradientButtonReset(
+                val gradientColor = listOf(Color(0xFF484BF1), Color(0xFF673AB7))
+                GradientButton(
                     gradientColors = gradientColor,
-                    cornerRadius = cornerRadius,
                     nameButton = "Submit",
-                    roundedCornerShape = RoundedCornerShape(topStart = 30.dp,bottomEnd = 30.dp)
+                    roundedCornerShape = RoundedCornerShape(topStart = 30.dp, bottomEnd = 30.dp),
+                    {}
                 )
-
                 Spacer(modifier = Modifier.padding(10.dp))
-       TextButton(onClick = {
-
-
-
-                }) {
+                TextButton(onClick = {}) {
                     Text(
                         text = "Sign Up?",
                         letterSpacing = 1.sp,
-                       // style = MaterialTheme.typography.labelLarge
+                        // style = MaterialTheme.typography.labelLarge
                     )
                 }
-
                 Spacer(modifier = Modifier.padding(5.dp))
-
-
             }
-
-
         }
-
     }
-
-
 }
 
-
-//...........................................................................
+// TODO reusable component?
 @Composable
-private fun GradientButtonReset(
-    gradientColors: List<Color>,
-    cornerRadius: Dp,
-    nameButton: String,
-    roundedCornerShape: RoundedCornerShape
+fun GradientButton(
+    gradientColors: List<Color> = listOf(Color(0xFF484BF1), Color(0xFF673AB7)),
+    nameButton: String = "Submit",
+    roundedCornerShape: RoundedCornerShape = RoundedCornerShape(
+        topStart = 150.dp,
+        bottomEnd = 150.dp
+    ),
+            onClick: () -> Unit
 ) {
-
-Button(
+    Button(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 32.dp, end = 32.dp),
-        onClick = {
-            //your code
-        },
-
+        onClick = {onClick()},
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent
         ),
-        shape = RoundedCornerShape(cornerRadius)
+        shape = roundedCornerShape//RoundedCornerShape(16.dp)
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -173,25 +135,14 @@ Button(
                     shape = roundedCornerShape
                 )
                 .clip(roundedCornerShape)
-                /*.background(
-                    brush = Brush.linearGradient(colors = gradientColors),
-                    shape = RoundedCornerShape(cornerRadius)
-                )*/
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = nameButton,
-                fontSize = 20.sp,
-                color = Color.White
-            )
+            Text(text = nameButton, fontSize = 20.sp, color = Color.White)
         }
     }
 }
 
-
-
-//email id
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ResetEmailID() {
@@ -201,12 +152,8 @@ fun ResetEmailID() {
     OutlinedTextField(
         value = text,
         onValueChange = { text = it },
-        shape = RoundedCornerShape(topEnd =12.dp, bottomStart =12.dp),
-        label = {
-            Text("Enter Registered Email",
-               // color = MaterialTheme.colorScheme.primary,
-               // style = MaterialTheme.typography.labelMedium,
-            ) },
+        shape = RoundedCornerShape(topEnd = 12.dp, bottomStart = 12.dp),
+        label = { Text("Enter Registered Email",) },
         placeholder = { Text(text = "Enter Registered Email") },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
@@ -214,18 +161,18 @@ fun ResetEmailID() {
         ),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Green,
-            unfocusedBorderColor = Color.Cyan),
+            unfocusedBorderColor = Color.Cyan
+        ),
         singleLine = true,
         modifier = Modifier.fillMaxWidth(0.8f),
         keyboardActions = KeyboardActions(
             onDone = {
                 keyboardController?.hide()
-                // do something here
             }
         )
-
     )
 }
+
 @Composable
 fun ForgotPasswordScreen() {
     ResetPage()
@@ -235,6 +182,7 @@ fun ForgotPasswordScreen() {
 @Preview
 fun ForgotPasswordScreenPreview() {
     MaterialTheme {
-        ForgotPasswordScreen()
+//        ForgotPasswordScreen()
+        GradientButton(onClick = {})
     }
 }

@@ -1,5 +1,6 @@
 package com.myra_winter.hiltblueprint.ui.navigation
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,39 +14,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myra_winter.hiltblueprint.R
+import com.myra_winter.hiltblueprint.ui.authenticated.api.ApiScreen
 import com.myra_winter.hiltblueprint.ui.authenticated.books.BookScreen
 import com.myra_winter.hiltblueprint.ui.authenticated.home.AppScaffold
 import com.myra_winter.hiltblueprint.ui.authenticated.home.HomeScreen
 import com.myra_winter.hiltblueprint.ui.unauthenticated.signUp.ForgotPasswordScreen
 import com.myra_winter.hiltblueprint.ui.unauthenticated.signUp.LoginScreen
 import com.myra_winter.hiltblueprint.ui.unauthenticated.signUp.SignUpScreen
-import com.myra_winter.hiltblueprint.ui.unauthenticated.signUp.onboarding.OnboardingScreen
-
-sealed class NavigationItem(
-    val route: String, var page_icon: Int = R.drawable.ic_placeholder,
-    var page_title: String? = null
-) {
-    // Navigation when Unauthenticated
-    object Login : NavigationItem(route = "Login")
-    object SignUp : NavigationItem(route = "SignUp")
-    object Forgot : NavigationItem(route = "Forgot")
-    object Onboarding : NavigationItem(route = "Onboarding")
-
-    // navigation when Authenticated -> Bottom Navigation Items
-    object Home : NavigationItem(route = "Home", R.drawable.ic_home, "Home")
-    object Settings : NavigationItem(route = "Settings", R.drawable.ic_settings, "Settings")
-    object BookOverView : NavigationItem(route = "BookOverView", R.drawable.ic_book, "Overview")
-
-    // navigation when Authenticated -> Other elements
-    object BookDetails :
-        NavigationItem(route = "BookDetails", R.drawable.ic_book_details, "Details")
-}
+import com.myra_winter.hiltblueprint.ui.unauthenticated.onboarding.OnboardingScreen
 
 @Composable
 fun RootNavigationGraph(
     navController: NavHostController = rememberNavController(),
-    startDestination: String
+    startDestination: String,
 ) {
     NavHost(
         navController = navController,
@@ -56,6 +37,7 @@ fun RootNavigationGraph(
             OnboardingScreen(
                 onClick = {
                     navController.popBackStack()
+                    Log.d("onClick", "Onboarding move to sign up")
                     navController.navigate(NavigationItem.SignUp.route)
                 })
         }
@@ -95,6 +77,9 @@ fun HomeNavGraph(modifier: Modifier = Modifier, navController: NavHostController
 //                name = NavigationItem.Home.route,
 //                onClick = { }) // { navController.navigate(NavigationItem.Information.route) })
             }
+            composable(route = NavigationItem.Api.route) {
+                ApiScreen()
+            }
             composable(route = NavigationItem.BookOverView.route) {
                 BookScreen()
             }
@@ -110,7 +95,11 @@ fun HomeNavGraph(modifier: Modifier = Modifier, navController: NavHostController
     }
 }
 
-// TODO delete this placeholder fun
+
+/**
+ * This is a placeholder Composable for pages which are currently under construction.
+ * usage:  ScreenContent(name = "ExampleName", onClick = { })
+ */
 @Composable
 fun ScreenContent(name: String, onClick: () -> Unit) {
     Box(

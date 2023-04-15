@@ -1,5 +1,6 @@
 package com.myra_winter.hiltblueprint.ui.unauthenticated.signUp
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -13,6 +14,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -28,14 +31,21 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myra_winter.hiltblueprint.ui.theme.Purple700
 
-//https://medium.com/@manojbhadane/android-login-screen-using-jetpack-compose-part-2-a262ad87c6d
 @Composable
 fun LoginScreen(
     onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit,
     onForgotClick: () -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    val gradient = Brush.verticalGradient(
+        0.0f to Color.Magenta,
+        0.8f to Color.Cyan,
+        0.99f to Color.White,
+        startY = 0.0f,
+        endY = 1250.0f
+    )
+
+    Box(modifier = Modifier.fillMaxSize()       .background(brush = gradient)) {
         ClickableText(
             text = AnnotatedString("Sign up here"),
             modifier = Modifier
@@ -56,6 +66,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        // needs to be handled in VM
         val username = remember { mutableStateOf(TextFieldValue()) }
         val password = remember { mutableStateOf(TextFieldValue()) }
 
@@ -102,7 +113,7 @@ fun LoginScreen(
 
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun LoginScreenPreview() {
     MaterialTheme {
         LoginScreen(onLoginClick = {}, onSignUpClick = {}, onForgotClick = {})

@@ -1,7 +1,7 @@
 package com.myra_winter.hiltblueprint.data.repository
 
 /**
- * This class is to manage the different User States: login, logout, onboarding and unknown as default
+ * This class is to manage the different User States: login, logout, onboardingas default
  * */
 enum class UserState {
     HOME,

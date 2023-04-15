@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.myra_winter.hiltblueprint.data.repository.DataStoreRepository
 import com.myra_winter.hiltblueprint.data.repository.UserState
 import com.myra_winter.hiltblueprint.ui.navigation.NavigationItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +29,7 @@ class HiltBlueprintViewModel @Inject constructor(
                 Log.d("APP VIEWMODEL", state.name)
                 when(state) {
                     // startDestination can only be Login, Home or Onboarding
+                    // TODO implement When Logout user state will be Login or, if always logged in is chosen -> home
                     UserState.HOME -> _startDestination.value = NavigationItem.Home.route
                     UserState.LOGIN -> _startDestination.value = NavigationItem.Login.route
                     UserState.SIGN_UP -> _startDestination.value = NavigationItem.SignUp.route
