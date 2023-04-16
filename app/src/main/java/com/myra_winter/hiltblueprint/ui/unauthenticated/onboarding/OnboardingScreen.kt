@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,8 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
 import com.myra_winter.hiltblueprint.R
-import com.myra_winter.hiltblueprint.ui.theme.customComponents.CustomGradientButton
-import com.myra_winter.hiltblueprint.ui.theme.customVerticalGradient
+import com.myra_winter.hiltblueprint.ui.theme.beige
+import com.myra_winter.hiltblueprint.ui.theme.customComponents.CustomBeigeButton
+import com.myra_winter.hiltblueprint.ui.theme.customComponents.CustomOutlinedButton
+import com.myra_winter.hiltblueprint.ui.theme.customVerticalGradientCut
 import com.myra_winter.hiltblueprint.ui.theme.white
 
 @OptIn(ExperimentalPagerApi::class)
@@ -37,13 +40,11 @@ fun OnboardingScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(customVerticalGradient)
+            .background(customVerticalGradientCut)
     ) {
         HorizontalPager(
-            modifier = Modifier.weight(10f),
-            count = 3,
-            state = pagerState,
-            verticalAlignment = Alignment.Top
+            modifier = Modifier.weight(10f), count = 3,
+            state = pagerState, verticalAlignment = Alignment.Top
         ) { position ->
             OnboardingPagerScreen(onBoardingPage = pages[position])
         }
@@ -57,8 +58,7 @@ fun OnboardingScreen(
 
         Row(
             modifier = Modifier
-                .weight(1.8f)
-                .padding(horizontal = 40.dp),
+                .weight(1.8f),
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -66,7 +66,15 @@ fun OnboardingScreen(
                 modifier = Modifier.fillMaxWidth(),
                 visible = pagerState.currentPage == 2
             ) {
-                CustomGradientButton(nameButton = "Sign up", onClick = { onClick() })
+                CustomOutlinedButton(
+                    nameButton = "Sign up now",
+                    onClick = { onClick() },
+                )
+//                CustomBeigeButton(
+//                    nameButton = "Sign up",
+//                    onClick = { onClick() },
+//                    color = ButtonDefaults.buttonColors(backgroundColor = beige)
+//                )
             }
         }
     }
@@ -90,7 +98,7 @@ fun OnboardingPagerScreen(onBoardingPage: OnboardingData) {
             contentDescription = "Pager Image"
         )
         Text(
-            color = white,
+            color = beige,
             modifier = Modifier
                 .fillMaxWidth(),
             text = onBoardingPage.title,
@@ -100,7 +108,7 @@ fun OnboardingPagerScreen(onBoardingPage: OnboardingData) {
             fontFamily = FontFamily.Cursive
         )
         Text(
-            color = white,
+            color = beige,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 40.dp)

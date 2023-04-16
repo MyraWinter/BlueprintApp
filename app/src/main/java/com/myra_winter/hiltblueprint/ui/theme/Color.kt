@@ -26,6 +26,7 @@ val MainColor = Color(0xFF8080ff)
 val white = Color.White
 val fav1 = Color(0xFF102c54) // Perlnachtblau
 val fav2 = Color(0xFF5e2129) // Weinrot
+val beige = Color(0xFFfff8e5) //
 
 
 
@@ -39,9 +40,9 @@ val customVerticalGradient = Brush.verticalGradient(
     endY = Float.POSITIVE_INFINITY
 )
 val customVerticalGradientCut = Brush.verticalGradient(
-    0.0f to fav1,
-    0.7f to fav2,
-    0.7f to white,
+    0.0f to fav2,
+    1.5f to fav1,
+    //0.7f to white,
     startY = Float.MIN_VALUE,
     endY = Float.POSITIVE_INFINITY
 )

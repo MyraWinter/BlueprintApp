@@ -24,7 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.myra_winter.hiltblueprint.data.repository.UserState
+import com.myra_winter.hiltblueprint.ui.theme.beige
+import com.myra_winter.hiltblueprint.ui.theme.customComponents.CustomBeigeButton
 import com.myra_winter.hiltblueprint.ui.theme.customComponents.CustomGradientButton
+import com.myra_winter.hiltblueprint.ui.theme.customComponents.CustomOutlinedButton
 import com.myra_winter.hiltblueprint.ui.theme.customVerticalGradient
 import com.myra_winter.hiltblueprint.ui.theme.customVerticalGradientCut
 import com.myra_winter.hiltblueprint.ui.theme.white
@@ -35,11 +38,10 @@ fun SignUpScreen(
     signUpViewModel: SignUpViewModel = hiltViewModel(),
     onClick: () -> Unit,
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(brush = customVerticalGradient)
+            .background(brush = customVerticalGradientCut)
             .fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -72,10 +74,13 @@ fun SignUpScreen(
         )
         Spacer(modifier = Modifier.weight(1f))
 
-        CustomGradientButton(nameButton = "Sign up", onClick = {
-            signUpViewModel.saveOnBoardingState(UserState.HOME)
-            onClick()
-        })
+        CustomOutlinedButton(
+            nameButton = "Sign up",
+            onClick = {
+                signUpViewModel.saveOnBoardingState(UserState.HOME)
+                onClick()
+            },
+        )
     }
 }
 

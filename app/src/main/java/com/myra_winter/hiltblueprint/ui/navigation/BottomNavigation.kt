@@ -13,6 +13,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.myra_winter.hiltblueprint.R
+import com.myra_winter.hiltblueprint.ui.theme.beige
+import com.myra_winter.hiltblueprint.ui.theme.fav1
 
 
 @Composable
@@ -39,8 +41,8 @@ fun BottomNavigationBar(navController: NavController) {
 
     if (visible) {
         BottomNavigation(
-            backgroundColor = colorResource(id = R.color.purple_200),
-            contentColor = Color.White
+            backgroundColor = fav1,
+            contentColor = beige
         ) {
             bottomTabList.forEach { tab ->
                 BottomNavigationItem(
