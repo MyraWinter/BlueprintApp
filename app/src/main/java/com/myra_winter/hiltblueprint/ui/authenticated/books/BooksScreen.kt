@@ -2,6 +2,7 @@ package com.myra_winter.hiltblueprint.ui.authenticated.books
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.myra_winter.hiltblueprint.ui.theme.customComponents.ListDivider
 import com.myra_winter.hiltblueprint.util.showToast
 import kotlinx.coroutines.delay
 
@@ -51,9 +53,11 @@ fun ShimmerEffectListView(isLoading: Boolean) {
                     .fillMaxWidth()
                     .padding(16.dp)
             )
+            ListDivider()
         }
     }
 }
+
 
 /**
  * Actual Listview that you want to display once shimmer goes out

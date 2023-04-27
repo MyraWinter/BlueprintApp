@@ -59,6 +59,8 @@ fun ShimmerItem(
     } else {
         // If actual content is loaded, display it
         actualContent()
+
+
     }
 }
 
